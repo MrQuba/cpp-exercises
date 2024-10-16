@@ -1,7 +1,9 @@
+#include <algorithm>
 #include <ostream>
 #include <vector>
 #include <utility>
 #include "concepts.hpp"
+#include "random.hpp"
 
 // overloading << operator for std::vector<T> for convenience
 template<Arithmetic T>
@@ -39,5 +41,19 @@ static T sum_vector_elements(std::vector<T> n) {
 		sum += a;
 	}
 	return sum;
+}
+static std::vector<int> generate_random_vector(const unsigned int size, const int min, const int max){
+	std::vector<int> v(size);
+	Random rnd(min, max);
+	auto rnd_gen = [&](){
+		return rnd.get_number();
+	};
+	std::generate(v.begin(), v.end(), rnd_gen);
+	return v;
+}
+static void add_vector_at_the_end_of_other(std::vector<T>* adding_to, std::vector<T>* adding_from){
+    for(auto it = adding_from->begin() = adding_from->begin(); it < adding_from->end(); it++){
+        adding_to->push_back(*it);
+    }
 }
 };

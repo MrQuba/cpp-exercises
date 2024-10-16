@@ -41,6 +41,13 @@ public:
 			numbers.push_back(std::abs(this->take("Input number: \n")->as_decimal()));
 		return numbers;
 	}
+	Input* take_until(std::invocable<Input*> auto && condition, const std::string text = "Input number:  \n"){
+		while(true){
+			this->take(text);
+			if(condition(this)) break;
+		}
+		return this;
+	}
 private:
 	std::string input;
 
