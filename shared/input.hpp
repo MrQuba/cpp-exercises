@@ -45,7 +45,7 @@ public:
 	Input* take_until(std::invocable<Input*, Args...> auto && condition, Args&&... args){
 		while(true){
 			this->take(text);
-			if(condition(this, std::forward<Args...>(args)...)) break;
+			if(condition(this, std::forward<Args>(args)...)) break;
 		}
 		return this;
 	}
