@@ -10,7 +10,7 @@ int main() {
     current_weight = weight_from_2_laps_ago + weight_from_previous_lap;
     std::swap(weight_from_2_laps_ago, weight_from_previous_lap);
     weight_from_previous_lap = current_weight;
-    std::cout << "Weigth at lap " << lap << ": " << current_weight << std::endl;
+    std::cout << "Weight at lap " << lap << ": " << current_weight << std::endl;
   }
 
   return 0;
