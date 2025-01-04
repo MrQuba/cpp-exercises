@@ -1,5 +1,4 @@
 #include "characters.hpp"
-
 const std::unordered_map<char, type> Characters::characters= {
 		{'a', type::vowel},
 		{'b', type::consonant},
