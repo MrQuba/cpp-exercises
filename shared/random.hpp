@@ -1,5 +1,5 @@
 #include <random>
-
+#pragma once
 class Random{
     public:
         Random(int begin, int end) : dist(begin, end) { }
