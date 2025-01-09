@@ -12,3 +12,10 @@ class Random{
         std::random_device rnd_device;
         std::uniform_int_distribution<int> dist;
 };
+namespace rng {
+inline double randd(const int begin = 0, const int end = 1, const unsigned int precision = 0){
+    const int d = std::pow(10, precision);
+    double r = rand() % (end * d -  begin * d + 1) + begin * d;
+    return r / (double)d;
+}
+};
