@@ -8,6 +8,7 @@ class Random{
         std::mt19937 mt{rnd_device()};
         return dist(mt);
         }
+        void change_range(int begin, int end) { dist = std::uniform_int_distribution<int>(begin, end);}
     private:
         std::random_device rnd_device;
         std::uniform_int_distribution<int> dist;
