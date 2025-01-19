@@ -4,6 +4,6 @@
 int main(){
     Random r(5, 12);
     const unsigned int a = r.get_number();
-    Display::rectangle('#', a, a);
+    Display::hollow_square('#', ' ', a);
     return 0;
 }

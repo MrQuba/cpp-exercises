@@ -1,4 +1,5 @@
 #include <random>
+#include <type_traits>
 #pragma once
 class Random{
     public:
@@ -7,6 +8,16 @@ class Random{
         int get_number(){
         std::mt19937 mt{rnd_device()};
         return dist(mt);
+        }
+        template<typename C> requires std::is_invocable_v<C, int>
+        int draw_until(C condition){
+        std::mt19937 mt{rnd_device()};
+        int n{};
+        do{
+            n = dist(mt);
+        }
+        while(!condition(n));
+        return n;
         }
         void change_range(int begin, int end) { dist = std::uniform_int_distribution<int>(begin, end);}
     private:
