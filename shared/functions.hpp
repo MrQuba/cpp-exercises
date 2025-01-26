@@ -1,5 +1,5 @@
 #pragma once
-#include "../shared/random.hpp"
+#include "random.hpp"
 #include <type_traits>
 namespace math {
 template <typename T, typename R>
