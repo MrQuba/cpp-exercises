@@ -1,30 +1,44 @@
+#include <cmath>
 #include <fstream>
-#include <iostream>
+#include <ranges>
+#include <type_traits>
+#include <vector>
 
+template <typename T>
+  requires std::is_arithmetic_v<T>
 class Files {
 public:
-  static void ExtractNumbers(std::fstream &f, const int n,
-                             bool ends_with_semicolon = false) {
+  static std::vector<T> ExtractNumbers(std::fstream &f) {
+    std::vector<T> nums;
     std::string s;
     while (std::getline(f, s)) {
-      for (int c{}; c < n; c++) {
-        if (s.empty())
-          continue;
-
-        auto i = s.find_first_of(';');
-
-        int a = std::stoi(std::string(
-            s.begin(), (!ends_with_semicolon and c + 1 == n)
-                           ? s.end()
-                           : ((ends_with_semicolon) ? s.begin() + s.find_last_of(';') : s.begin() + i)));
-
-        if (i != std::string::npos){
-          s = s.erase(0, i + 1);
-        }
-
-        std::cout << a << " ";
-      }
-      std::cout << "\n";
+      auto r = s | std::views::filter([](auto &&c) {
+                 return std::isdigit(c) || c == ';' || c == '.' || c == '-';
+               });
+      number_builder(r, nums);
     }
+    return nums;
   }
+
+private:
+  static constexpr T ston(std::string s) {
+    if constexpr (std::is_same_v<T, int>)
+      return std::stoi(s);
+    else if constexpr (std::is_same_v<T, double>)
+      return std::stod(s);
+  }
+  constexpr static auto number_builder = [](auto &&view, std::vector<T> &v) {
+    std::string num = "";
+    for (auto c : view) {
+      if (c == ';') {
+        if (num != "")
+          v.push_back(ston(num));
+        num.clear();
+        continue;
+      }
+      num.push_back(c);
+    }
+    if (num != "")
+      v.push_back(ston(num));
+  };
 };

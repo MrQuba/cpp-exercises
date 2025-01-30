@@ -1,6 +1,7 @@
 #include "../shared/sequences.hpp"
 #include <iostream>
 #include <vector>
+#include <ranges>
 int main(){
     auto sequence_pattern = [](const std::vector<int>& v, unsigned int* x, const unsigned int n) {
         // n * cout << n
@@ -14,12 +15,8 @@ int main(){
         } 
         std::cout << std::endl;
         };
-
-    std::vector<int> v;
-    // init vector
-    for(int i = 1; i <= 100; i++){
-            v.push_back(i);
-    }
+    auto i = std::views::iota(1, 101);
+    std::vector<int> v(i.begin(), i .end());
     Sequence* s = new Sequence();
     s->displayNElementsOfSequence(v, 100, sequence_pattern);
     delete s;

@@ -3,10 +3,11 @@
 #include <iostream>
 #include <string>
 #include "../shared/files.hpp"
+#include "../shared/vector_utils.hpp"
 int main(){
     std::string s;
     std::fstream f("33_dane.txt", std::ios_base::in);
-    Files::ExtractNumbers(f, 2);
+    std::cout << Files<int>::ExtractNumbers(f) << "\n";
 
     return 0;
 }
