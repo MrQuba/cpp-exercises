@@ -33,3 +33,5 @@
 
 # Text
 *.txt
+#Shell scripts
+*.sh
