@@ -11,7 +11,7 @@ concept is_container_v = requires (Container c){{c.begin()} ->  std::same_as<typ
 template<typename C> requires is_container_v<C> 
 struct interleave_view: public std::ranges::view_interface<interleave_view<C>>{
     interleave_view() = default;
-    interleave_view(const C& c, const C& cc) : cptr(std::make_unique<C>(c)), ccptr(std::make_unique<C>(cc)) {
+    interleave_view(const C& c, const C& cc) : cptr(std::make_shared<C>(c)), ccptr(std::make_shared<C>(cc)) {
         container.reserve(c.size() + cc.size() + 1);
     }
     auto begin() const { return container.begin(); }
@@ -33,8 +33,8 @@ struct interleave_view: public std::ranges::view_interface<interleave_view<C>>{
     private:
     C container;
 
-    std::unique_ptr<C> cptr;  
-    std::unique_ptr<C> ccptr;  
+    std::shared_ptr<C> cptr;  
+    std::shared_ptr<C> ccptr;  
     };
 
 int main(){
